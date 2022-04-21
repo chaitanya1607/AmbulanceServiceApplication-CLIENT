@@ -1,0 +1,243 @@
+<div class="panel-heading">
+    <h2 style="text-align: center;"class="panel-title">Update Driver</h2>
+</div>
+<app-loading *ngIf="isSpinning"></app-loading>
+<div  *ngIf="!isSpinning"  class="container">
+    <form #updateDriverForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="panel panel-primary">
+            <div class="panel-body">
+            <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" id ="fullName" required name="fullName"
+                [(ngModel)]="driver.fullName" class="form-control" style="width:400px;"
+                #fullName="ngModel"
+                pattern="^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{2,25}$"
+                [class.is-invalid]="fullName.touched && fullName.invalid">
+                <div *ngIf="fullName.errors && (fullName.invalid || fullName.touched)">
+                    <small class="text-danger" *ngIf="fullName.errors.required">Full Name is required</small>
+                    <small class="text-danger" *ngIf="fullName.errors.pattern">Full Name must be only alphabets & at least of 3 characters</small>
+                </div>
+                <img [src]="photo" class="img-thumbnail" style="width:150px;height:170px;float:right;">
+                <!-- <div class="col-md-12">
+        </div> -->
+        <br>
+        <!-- </div>
+         -->
+        <!-- <div class="form-group"> -->
+            <label for="email" >Email</label>
+            <input type="email" id ="email" required name="email" 
+            [(ngModel)]="driver.email" style="width:400px;"
+            #email="ngModel" class="form-control"
+            [class.is-invalid]=" email.touched && email.invalid" email>
+            <div *ngIf="email.errors && (email.invalid || email.touched)">
+                <small class="text-danger" *ngIf="email.errors.required">Email is required</small>
+                <small class="text-danger" *ngIf="email.errors.pattern">Enter a valid Email</small>
+            </div>
+        </div>
+        <br>
+        
+        <div class="form-group">
+            <label for="mobileNumber">Mobile Number</label>
+            <input type="tel"  #mobileNumber="ngModel" style="width:400px;"
+            name="mobileNumber"  id="mobileNumber" class="form-control"
+            required [(ngModel)]="driver.mobileNumber"  pattern="^\d{10}$"
+            [class.is-invalid]="mobileNumber.invalid && mobileNumber.touched" >
+            <div *ngIf="mobileNumber.errors && (mobileNumber.invalid || mobileNumber.touched)">
+                <small class="text-danger" *ngIf="mobileNumber.errors.required">Mobile Number is required</small>
+                <small class="text-danger" *ngIf="mobileNumber.errors.pattern">Enter a valid Mobile Number</small>
+            </div>
+        </div> 
+        <br>
+        <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" id="address" required name="address"
+            [(ngModel)]="driver.address" #address="ngModel"  
+            class="form-control"
+            [class.is-invalid]="address.touched && address.invalid"
+            pattern=".{10,30}" >
+            <div *ngIf="address.errors && (address.invalid || address.touched)">
+                <small class="text-danger" *ngIf="address.errors.required">Address is required</small>
+                <small class="text-danger" *ngIf="address.errors.pattern">Enter a valid Address(length 10-30 character)</small>
+            </div>
+        </div>
+        <br>
+        <hr>
+        <div class="form-group">
+            <label for="aadharNumber">Aadhar Number</label>
+            <input type="text" id ="aadharNumber" required
+            pattern="^([2-9]{1}[0-9]{3})( )([0-9]{4})( )([0-9]{4})$"
+             name="aadharNumber" [(ngModel)]="driver.aadharNumber" 
+            #aadharNumber="ngModel" class="form-control" 
+            [class.is-invalid]="aadharNumber.touched && aadharNumber.invalid" >
+            <div *ngIf="aadharNumber.errors && (aadharNumber.invalid || aadharNumber.touched)">
+                <small class="text-danger" *ngIf="aadharNumber.errors.required">Aadhar Number is required</small>
+                <small class="text-danger" *ngIf="aadharNumber.errors.pattern">Enter a valid AadharNumber(eg:XXXX XXXX XXXX)</small>
+            </div>        
+            </div>
+            <button type="button" class="btn btn-info" (click)="viewAadhar()">View Aadhar</button>
+                    <div class="pdf-viewer">
+                        <div *ngIf="isAadhar" class="child">
+                            <pdf-viewer class="pdf" [src]="currentAadhar" 
+                             [render-text]="true"
+                             [show-all]="false"
+                             [render-text]="true"
+                             [fit-to-page]="true"
+                             [show-borders]="true"
+                             style="display: block;">
+                             </pdf-viewer>      
+                        </div>
+                        <div *ngIf="isAadhar">
+                            <button type="button" class="btn btn-info float-left" (click)="closeAadhar()">close File</button>
+                        </div>
+                       
+                   
+                <!-- <div *ngIf=isAadhar>
+                    <pdf-viewer 
+                    [src]="currentAadhar"
+                    [show-all]="true"
+                    [render-text]="true"
+                    [fit-to-page]="true"
+                    [show-borders]="true"
+                    style="display: block;"
+                    >
+                    
+                    </pdf-viewer>
+                </div> -->
+            
+        <br>
+            <div class="custom-file">
+                <input type="file" name="file" id="file" class="custom-file-input" (change)="onAadharChanged($event)">
+                <label for="file" class="custom-file-label">Choose a file</label>
+                <label *ngIf="aadhar">{{aadhar.name}}</label>
+            </div>
+            <br>
+        <div class="form-group">
+            <label for="drivingLicenseNumber">Driving License Number :</label>
+            <input type="text" id ="drivingLicenceNumber" required name="drivingLicenceNumber"
+             [(ngModel)]="driver.drivingLicenceNumber"
+            #drivingLicenceNumber="ngModel"
+            pattern="^(([A-Z]{2}[0-9]{2})( )|([A-Z]{2}-[0-9]{2}))((19|20)[0-9][0-9])[0-9]{7}$" 
+            class="form-control" 
+            [class.is-invalid]="drivingLicenceNumber.touched && drivingLicenceNumber.invalid">
+            <div *ngIf="drivingLicenceNumber.errors && (drivingLicenceNumber.invalid || drivingLicenceNumber.touched)">
+                <small class="text-danger" *ngIf="drivingLicenceNumber.errors.required">Driving License Number is required</small>
+                <small class="text-danger" *ngIf="drivingLicenceNumber.errors.pattern">Enter a valid Driving License Number that starts with 19 or 20(eg:TN09 19345678901)</small>
+            </div>
+        </div>
+            <button type="button" class="btn btn-info" (click)="viewLicense()">View License</button>
+            <div class="from-group">
+                <div *ngIf="isLicence" class="child">
+                    <pdf-viewer class="pdf" [src]="currentLicense" 
+                     [render-text]="true"
+                             [show-all]="false"
+                             [render-text]="true"
+                             [fit-to-page]="true"
+                             [show-borders]="true"
+                             style="display: block;">
+                     </pdf-viewer>      
+                </div>
+                <div *ngIf="isLicence">
+                    <button type="button" class="btn btn-info" (click)="closeLicence()">close File</button>
+                </div>
+               
+            </div>
+            <!-- <div class="col-md-12">
+                <div *ngIf=isLicence>
+                    <pdf-viewer 
+                    [src]="currentLicense" 
+                    [show-all]="true"
+                    [render-text]="true"
+                    [fit-to-page]="true"
+                    [show-borders]="true"
+                    style="display: block;"
+                    ></pdf-viewer>
+                </div>
+        </div> -->
+       <br>
+        <div class="custom-file">
+            <input type="file" name="file" id="file" class="custom-file-input" (change)="onLicenseChanged($event)">
+            <label for="file" class="custom-file-label">Choose a file</label>
+            <label *ngIf="license">{{license.name}}</label>
+        </div>
+        <br>
+        <div class="form-group" *ngIf=!isblsCourse>
+            <label>Completed Basic Life Support Course ? </label>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="blsCourse" [value]="true" 
+            [(ngModel)]="driver.blsCourse">
+            <label class="form-check-label">Yes</label>
+            </div>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="blsCourse" [value]="false"
+            [(ngModel)]="driver.blsCourse">
+            <label class="form-check-label">No</label>
+            </div>
+         </div>
+        <br>
+        <div class="form-group" *ngIf=!iscprCourse >
+            <label>Completed Cardiopulmonary Resuscitation Course  ? </label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="cprCourse" 
+            [(ngModel)]="driver.cprCourse" [value]="true" >
+            <label class="form-check-label">Yes</label>
+        </div>
+        <div class="form-check">
+        <input class="form-check-input" type="radio" name="cprCourse"
+         [(ngModel)]="driver.cprCourse" [value]="false">
+         <label class="form-check-label">No</label>
+        </div>
+    </div>
+        <br>
+
+
+        <div class="form-group">
+            <label for="criminalRecord">History of Criminal Record ? </label>
+            <div class="form-check">
+            <input class="form-check-input" type="radio" name="criminalRecord" [value]="true" 
+             [(ngModel)]="driver.criminalRecord">
+             <label class="form-check-label">Yes</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="criminalRecord" [value]="false"
+            [(ngModel)]="driver.criminalRecord">
+            <label class="form-check-label">No</label>
+        </div>
+        </div>
+    </div>
+</div>
+<div class="update_button">
+    <button type="submit" [disabled]="updateDriverForm.form.invalid" class="btn btn-success float-left-buttom">Update</button>
+
+    <button type="button" style="margin-left:2.5em" class="btn btn-secondary float-right" (click)="gotoList()">Back</button>
+</div>
+<br>
+<br>
+<br>
+<br>
+       </div>
+    </form>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<!-- <div class="form-group">
+            <div class="col-md-6">
+                <input type="file" class="form-control" (change)="onPhotoChanged($event)" placeholder="Upload Photo">
+            </div>
+        </div> -->
+        <!-- <div class="form-group">
+            <label>Gender</label>
+            <input type="radio" name="gender" value="male" checked class="form-control" formControlName="gender">Male
+            <input type="radio" name="gender" value="female" class="form-control" formControlName="gender">Female
+        </div> -->
+
+        <!-- <div class="form-group">
+            <label for="dateOfBirth" >Date of Birth</label>
+            <input type="date" class="form-control" id ="dateOfBirth" required formControlName="dateOfBirth" name="dateOfBirth">
+        </div> -->

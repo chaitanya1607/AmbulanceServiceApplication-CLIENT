@@ -1,0 +1,81 @@
+
+<h2 style="text-align: center;">Add Hospital Form</h2>
+<app-loading *ngIf="isSpinning"></app-loading>
+<div class="container" *ngIf="!isSpinning">  
+        <form [formGroup]="addHospitalForm" id="addHospitalForm" name="addHospitalForm">
+            <div class="form-group" >
+                <label>Hospital Name:</label>
+                <input type="text" class="form-control" id="hospitalName" name="hospitalName" required formControlName="hospitalName" maxlength="20"
+                [class.is-invalid]="addHospitalForm.get('hospitalName').invalid && addHospitalForm.get('hospitalName').touched">
+                <small *ngIf="addHospitalForm.get('hospitalName').errors?.required  && (addHospitalForm.get('hospitalName').touched || addHospitalForm.get('hospitalName').dirty)" class="text-danger">Hospital name is required</small>
+                <small *ngIf="addHospitalForm.get('hospitalName').errors?.minlength" class="text-danger">Hospital name should have atleast 3 characters</small>
+                <small *ngIf="addHospitalForm.get('hospitalName').errors?.maxlength" class="text-danger">Hospital name should not exceed 20 characters</small>
+                <small *ngIf="addHospitalForm.get('hospitalName').errors?.pattern" class="text-danger">Hospital Name should contain only alphabets and spaces.</small>
+            </div>
+            <div class="form-group">
+                <label>Phone number:</label>
+                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required formControlName="phoneNumber" maxlength="10"
+                [class.is-invalid]="addHospitalForm.get('phoneNumber').invalid && addHospitalForm.get('phoneNumber').touched">
+                <small *ngIf="addHospitalForm.get('phoneNumber').errors?.required  && (addHospitalForm.get('phoneNumber').touched || addHospitalForm.get('phoneNumber').dirty)" class="text-danger">Hospital phone number is required</small>
+                <small *ngIf="addHospitalForm.get('phoneNumber').errors?.minlength" class="text-danger">Hospital phone number should not be less than 10 numbers</small> 
+               <small *ngIf="addHospitalForm.get('phoneNumber').errors?.maxlength" class="text-danger">Hospital phone number should not exceed 10 numbers</small> 
+               <small *ngIf="addHospitalForm.get('phoneNumber').errors?.pattern" class="text-danger">Hospital phone number should not have characters other than number</small> 
+                <!-- <div *ngIf="addHospitalForm.get('phoneNumber').errors?.pattern">Please, Enter 10 digit Mobile Number.</div> -->
+            </div>
+            <div class="form-group">
+                <label>Address:</label>
+                <input type="text" class="form-control" id="address" name="address" required formControlName="address" maxlength="100"
+                [class.is-invalid]="addHospitalForm.get('address').invalid && addHospitalForm.get('address').touched">
+                <small *ngIf="addHospitalForm.get('address').errors?.required  && (addHospitalForm.get('address').touched || addHospitalForm.get('address').dirty)" class="text-danger">Hospital address is required</small>
+                <small *ngIf="addHospitalForm.get('address').errors?.minlength" class="text-danger">Hospital address should have atleast 10 characters</small>
+                <small *ngIf="addHospitalForm.get('address').errors?.maxlength" class="text-danger">Hospital address should not exceed 100 characters</small>
+            </div>
+            <div class="form-group">
+                <label>Speciality:</label>
+               <select class="box" id="speciality" name="speciality" required formControlName="speciality"
+               [class.is-invalid]="addHospitalForm.get('speciality').invalid && addHospitalForm.get('speciality').touched">
+                   <option value="general">General</option>
+                   <option value="superSpeciality">Super-speciality</option>
+               </select>
+               <small *ngIf="addHospitalForm.get('speciality').errors?.required  && (addHospitalForm.get('speciality').touched || addHospitalForm.get('speciality').dirty)" class="text-danger">Hospital speciality must be choosen</small>
+            </div>
+            <div class="form-group">
+                <label>Latitude:</label>
+                <input type="number" class="form-control" id="latitude" name="latitude" required formControlName="latitude"
+                [class.is-invalid]="addHospitalForm.get('latitude').invalid && addHospitalForm.get('latitude').touched">
+                <small *ngIf="addHospitalForm.get('latitude').errors?.required  && (addHospitalForm.get('latitude').touched || addHospitalForm.get('latitude').dirty)" class="text-danger">Latitude is required</small>
+            </div>
+            <div class="form-group">
+                <label>Longitude:</label>
+                <input type="number" class="form-control" id="longitude" name="longitude" required formControlName="longitude"
+                [class.is-invalid]="addHospitalForm.get('longitude').invalid && addHospitalForm.get('longitude').touched">
+                <small *ngIf="addHospitalForm.get('longitude').errors?.required  && (addHospitalForm.get('longitude').touched || addHospitalForm.get('longitude').dirty)" class="text-danger">Longitude is required</small>
+            </div>
+
+        <div class="custom-file">
+            <input type="file" name="file" id="hospitalFile" class="custom-file-input" (change)="onRegistrationFileChange($event)"  required>
+            <label for="file" class="custom-file-label">Hospital Registration certificate</label>
+            <label *ngIf="registrationFile">{{registrationFile.name}}</label>
+        </div>
+        <br>
+        <br>
+        <div>
+            <button type="submit" class="btn btn-success float-left-bottom" [disabled]="!addHospitalForm.invalid && regFileGiven" (click)="onSubmit(addHospitalForm)">Register</button>
+            <button type="button" style="margin-left:2.5em" class="btn btn-secondary float-right" (click)="goBack()">Back</button>
+        </div>
+        </form>
+        <br>
+        <br>       
+    </div>
+    <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+   <app-footer></app-footer>
+    
+

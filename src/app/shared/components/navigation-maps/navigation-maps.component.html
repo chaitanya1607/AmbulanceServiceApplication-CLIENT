@@ -1,0 +1,8 @@
+<div #map [style.width]="width" [style.height]="height" style="float: left"></div>
+<div class="table-wrapper-scroll-y my-custom-scrollbar">
+<ol style="text-align: justify; background-color: #FFF; width: 90%; min-height: 530px; margin-left: 20px; margin-top: 0">
+    <li *ngFor="let direction of directions">
+        <p [innerHTML]="direction.instruction"></p>
+    </li>
+</ol>
+</div>

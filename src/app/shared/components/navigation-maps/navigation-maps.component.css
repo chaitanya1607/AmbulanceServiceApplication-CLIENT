@@ -1,0 +1,21 @@
+.table-wrapper-scroll-y  th, td {
+    padding: 8px 16px;;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+
+.table-wrapper-scroll-y thead, th { position: sticky; top: 0; }
+
+.table-wrapper-scroll-y table  { border-collapse: collapse; width: 100%; }
+
+.table-wrapper-scroll-y th  { background:#eee; }
+
+.my-custom-scrollbar {
+position: relative;
+height: 530px;
+overflow: auto;
+}
+.table-wrapper-scroll-y {
+display: block;
+}
+.table-wrapper-scroll-y tr:hover {background-color: #f5f5f5;}

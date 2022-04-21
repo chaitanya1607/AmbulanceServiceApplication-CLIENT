@@ -1,0 +1,28 @@
+
+<app-loading *ngIf="isSpinning"></app-loading>
+<div *ngIf="!isSpinning" class="login">
+    
+    <img src="../../assets/driver.png" style="width:150px;height:150px;" class="img-thumbnail">
+    <form #login='ngForm' method="post" (ngSubmit)="onLogin()">
+        <h3>Driver</h3>
+        <input type="text" [(ngModel)]="user" name="user" 
+        placeholder="Username" 
+        required="required"
+        #userName="ngModel">
+        <input type="password" [(ngModel)]="passWd" name="passWd" placeholder="Password" required="required" #password="ngModel">
+        <!-- <small class="text-danger" *ngIf="password.errors.required && password.touched">Password is required</small> -->
+        <small><a  routerLinkActive="active" style="float:right;" routerLink="recoveryMail">Forgot Password?</a></small>
+        <br>
+        <br>
+        <button type="submit" style="background-color:lightblue" class="btn btn-block btn-medium"><b>Login</b></button>
+        <br>
+        <p><b>Want to Drive with us?</b>
+        <a (click)="register()" style="margin-left:10px;"class="routerLink">Register</a></p>
+    </form>
+    
+    
+</div>
+<br>
+<br>
+<br>
+<br>

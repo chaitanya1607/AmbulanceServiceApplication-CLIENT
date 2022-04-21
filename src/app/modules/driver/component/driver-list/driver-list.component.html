@@ -1,0 +1,69 @@
+<!-- <app-header></app-header> -->
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2 >Drivers List</h2>
+  </div>
+  <div class="panel-body" *ngIf="!isSpinning" id="table-align" >
+   <div class="table-wrapper-scroll-y my-custom-scrollbar">
+    <table >
+      <thead>
+        <tr>
+          <th>Driver Name</th>
+          <th>Driving Licence Number</th>
+          <th>Mobile Number</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let driver of drivers">
+         
+          <td>{{driver.fullName}}</td>
+          <td>{{driver.drivingLicenceNumber}}</td>
+          <td>{{driver.mobileNumber}}</td>
+          <td><input type="radio" value=driver.driverId id="driverId" name="driverId" (change)="changeDriverId(driver.driverId)"></td>
+          <!-- <td><button (click)="updateDriver(driver.driverId)" class="btn btn-info">Update Driver</button> 
+              <button (click)="deleteDriver(driver.driverId)" class="btn btn-danger">Delete Driver</button> 
+              <button (click)="viewDriver(driver.driverId)" class="btn btn-info" style="margin-left: 10px">View Driver</button>
+          </td> -->
+        </tr>
+      </tbody>
+    </table>
+   </div>
+    
+    <table class="buttonsTable ">
+      <tr>
+        <td></td>
+        <td width = "350px">
+          <button class="btn btn-primary" [disabled]="disabled()" (click)="updateDriver()">Update</button>
+        </td>
+        <td width = "350px">
+          <button class="btn btn-danger" [disabled]="disabled()" (click)="deleteDriver()">Delete</button>
+        </td>
+        <td width = "350px">
+          <button class="btn btn-info" [disabled]="disabled()" (click)="viewDriver()">View</button>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="width:250px">
+        <button type="button" class="btn btn-secondary float-right"  (click)="goBack()">Back</button>
+      </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<app-loading *ngIf="isSpinning"></app-loading>
+  <br>
+  <br>
+  <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+  <app-footer></app-footer>

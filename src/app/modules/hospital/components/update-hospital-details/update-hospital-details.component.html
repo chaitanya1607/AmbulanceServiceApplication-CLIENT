@@ -1,0 +1,110 @@
+<div class="panel-heading">
+    <h3 style="text-align: center;"class="panel-title">Update Hospital</h3>
+</div>
+<app-loading *ngIf="isSpinning"></app-loading>
+<div  *ngIf="!isSpinning" class="container">
+        <form #updateHospitalForm="ngForm" (ngSubmit)="onSubmit()">
+            <div class="panel panel-primary">
+                <div class="panel-body">
+                <div class="form-group" >
+                <label for="hospitalName">Hospital Name :</label>
+                <input type="text" class="form-control" id="hospitalName" name="hospitalName"
+                required 
+                pattern="^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{2,25}$"
+                #hospitalName="ngModel" [(ngModel)]="hospital.hospitalName"
+                [class.is-invalid]="hospitalName.invalid && hospitalName.touched">
+                <div *ngIf="hospitalName.errors && (hospitalName.invalid || hospitalName.touched)">
+                    <small class="text-danger" *ngIf="hospitalName.errors.required">Hospital Name is required</small>
+                    <small class="text-danger" *ngIf="hospitalName.errors.pattern">Hospital Name must be only alphabets & at least of 3 characters</small>
+           </div>
+            </div>
+            <div class="form-group">
+                <label>Phone number :</label>
+                <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" #phoneNumber="ngModel"
+                 required minlength=10 maxlength="10" pattern="^[0-9]*$" [(ngModel)]="hospital.phoneNumber"
+                [class.is-invalid]="phoneNumber.invalid && phoneNumber.touched">
+                <small class="text-danger" [class.d-none]="phoneNumber.valid || phoneNumber.untouched">Hospital phone number is required</small>
+                <small *ngIf="phoneNumber.errors?.minlength" class="text-danger">Hospital phone number should not be less than 10 numberss</small> 
+                <small *ngIf="phoneNumber.errors?.maxlength" class="text-danger">Hospital phone number should not exceed 10 numberss</small> 
+                <small *ngIf="phoneNumber.errors?.pattern" class="text-danger">Hospital phone number should not have characters other than number</small> 
+            </div>
+            <div class="form-group">
+                <label>Address : </label>
+                <input type="text" class="form-control" id="address" name="address" #address="ngModel"
+                 required minlength="10" maxlength="100" [(ngModel)]="hospital.address"
+                 [class.is-invalid]="address.invalid && address.touched">
+                 <small *ngIf="address.errors?.required  && (address.touched || address.dirty)" class="text-danger">Hospital address is required</small>
+                 <small *ngIf="address.errors?.minlength" class="text-danger">Hospital address should have atleast 10 characters</small>
+                 <small *ngIf="address.errors?.maxlength" class="text-danger">Hospital address should not exceed 100 characters</small>
+            </div>
+            <div class="form-group">
+                <label for="speciality">Speciality :   </label>
+               <select id="speciality" name="speciality" 
+               #speciality="ngModel" required class="box"
+                [(ngModel)]="hospital.speciality">
+                   <option value="general">General</option>
+                   <option value="superSpeciality">Super-speciality</option>
+               </select>
+               <small *ngIf="speciality.errors?.required  && (speciality.touched || speciality.dirty)" class="text-danger">Hospital speciality must be choosen</small>
+            </div>
+            <div class="form-group">
+                <label for="latitude">Latitude :</label>
+                <input type="number" class="form-control" id="latitude" name="latitude"
+                #latitude="ngModel" required [(ngModel)]="hospital.latitude"
+                [class.is-invalid]="latitude.invalid && latitude.touched">
+                <div *ngIf="latitude.errors && (latitude.invalid || latitude.touched)">
+                    <small class="text-danger" *ngIf="latitude.errors.required">Latitude is required</small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="longitude">Longitude :</label>
+                <input type="number" class="form-control" id="longitude" name="longitude"
+                #longitude="ngModel" required [(ngModel)]="hospital.longitude"
+                [class.is-invalid]="longitude.invalid && longitude.touched">
+                <div *ngIf="longitude.errors && (longitude.invalid || longitude.touched)">
+                    <small class="text-danger" *ngIf="longitude.errors.required">Longitude is required</small>
+                </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-info" (click)="viewCertificate()">View Hospital Registration Certificate</button>
+            </div>
+                    <div *ngIf="isCertificateReady" class="child">
+                        <pdf-viewer class="pdf" [src]="certificate" 
+                         [render-text]="true"[show-all]="false"
+                         [render-text]="true"
+                         [fit-to-page]="true"
+                         [show-borders]="true"
+                         style="display: block;">
+                         </pdf-viewer>      
+                    </div>
+                    <div *ngIf="isCertificateReady">
+                        <button type="button" class="btn btn-info float-left" (click)="closeCertificate()">close File</button>
+                    </div>
+           
+            <br>
+                <div class="custom-file">
+                    <input type="file" name="file" id="file" class="custom-file-input" (change)="onRegistrationFileChange($event)">
+                    <label for="file" class="custom-file-label">Choose a file</label>
+                    <label *ngIf="hospitalRegistrationFile">{{hospitalRegistrationFile.name}}</label>
+                </div>
+            </div>
+            <br>
+            <div>
+                <button type="submit" [disabled]="updateHospitalForm.form.invalid" class="btn btn-success float-left-buttom" >Update</button>
+                <button type="button" class="btn btn-secondary float-right" style="margin-left:2.5em" (click)="goBack()">Back</button>
+            </div><br><br>
+            </div><br><br>
+        </form>      
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<app-footer></app-footer>
+

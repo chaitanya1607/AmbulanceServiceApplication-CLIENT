@@ -1,0 +1,57 @@
+<app-loading *ngIf="isSpinning"></app-loading>
+<div class="container" *ngIf="!isSpinning">
+    <h3>Route to Hospital :</h3>
+<div style="padding: 10px 0">
+    <div>
+        <label style="display: inline-block; width: 60px; color:black">Start</label>
+        <input type="text" [(ngModel)]="start" />
+    </div>
+    <div>
+        <label style="display: inline-block; width: 60px; color:black">Finish</label>
+        <input type="text" [(ngModel)]="finish"/>
+    </div>
+  </div>
+
+  <app-navigation-maps id="map" appId="SFkBNJRm1jpsmh2j6vpy" apiCode="M0lL-syflmBoz5m3RPXw0w" [start]="start" [finish]="finish" width="60%" height="530px"></app-navigation-maps>
+<br>
+  <h3>
+        Hospital Details : 
+    </h3>
+  <div *ngIf="customer" id="detailspage">
+      <h6>Hospital Id :   <b> {{customer.nearByHospital.hospitalId}}</b></h6>
+      <br>
+       <h6>Hospital Name :<b> {{customer.nearByHospital.hospitalName}}</b></h6>
+       <br>     
+ <h6>Phone number : <b>{{customer.nearByHospital.phoneNumber}}   </b></h6>
+ <br>    
+ <h6>Address :      <b>{{customer.nearByHospital.address}}       </b></h6>
+ <br>   
+ <button class="btn btn-secondary" style="float:left" disabled>Reached</button> 
+
+</div>
+</div>
+<br><br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+  
+    
+
+
+
+
+<!-- <p>driver-hospital-map works!</p>
+<agm-map [latitude]="lat" [longitude]="lng">
+  
+   
+      <agm-marker [latitude]="destlat" [longitude]="destlong"></agm-marker>
+      <agm-marker [latitude]="lat" [longitude]="lng"> </agm-marker>
+   
+  </agm-map>
+   -->

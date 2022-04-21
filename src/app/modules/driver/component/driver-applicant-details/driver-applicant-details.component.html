@@ -1,0 +1,93 @@
+ <h2 style="text-align: center;">Driver Applicant Details</h2>
+    <app-loading *ngIf="isSpinning"></app-loading>
+ <div class="container" *ngIf="!isSpinning">
+ <form>
+     <div>
+        <label>Driver Name :</label> {{driver.fullName}} <img [src]="photo" style="width:150px;height:170px;float:right;" class="img-thumbnail">
+       <br>
+        <label>Gender :</label> {{driver.gender}}<br>
+        <label>Mobile :</label> {{driver.mobileNumber}}<br>
+        <label>Email :</label> {{driver.email}}<br>
+        <label>Date Of Birth :</label> {{driver.dateOfBirth}}<br>
+    </div>
+        <label>Address :</label> {{driver.address}}<br>
+        <label>Aadhar Number :</label> {{driver.aadharNumber}}<br>
+        <button type="button" class="btn btn-info" (click)="viewAadhar()">View Aadhar</button>
+                <div *ngIf="isAadhar" class="child">
+                    <pdf-viewer class="pdf" [src]="aadhar" 
+                     [render-text]="true"
+                     [show-all]="false"
+                     [render-text]="true"
+                     [fit-to-page]="true"
+                     [show-borders]="true"
+                     style="display: block;">
+                     </pdf-viewer>      
+                </div>
+                <div *ngIf="isAadhar">
+                    <button type="button" class="btn btn-info" (click)="closeAadhar()">Close File</button>
+                </div>
+        <hr>
+        <br>
+        <label>Driving License Number :</label> {{driver.drivingLicenceNumber}}<br>
+        <button type="button" class="btn btn-info" (click)="viewLicense()">View License</button>
+                <div *ngIf="isLicense" class="child">
+                    <pdf-viewer class="pdf" [src]="license" 
+                    [render-text]="true"
+                     [show-all]="false"
+                     [render-text]="true"
+                     [fit-to-page]="true"
+                     [show-borders]="true"
+                     style="display: block;">
+                     </pdf-viewer>      
+                    </div>
+                <div *ngIf="isLicense">
+                    <button type="button" class="btn btn-info" (click)="closeLicence()">Close File</button>
+                </div>
+                <br>
+        <label>Emergency Vehicle Operator Course (EVOC) :</label>
+        <div *ngIf="evocCourse ;else not_completed">
+            Yes
+        </div>
+        <ng-template #not_completed>No</ng-template>
+        <br>
+        <label>Basic Life Support Course(BLS) :</label>
+        <div *ngIf="blsCourse ;else not_completed">
+            Yes
+        </div>
+        <ng-template #not_completed>No</ng-template>
+        <br>
+        <label>Cardiopulmonary Resuscitation (CPR) Course:</label>
+        <div *ngIf="cprCourse ;else not_completed">
+            Yes
+        </div>
+        <ng-template #not_completed>No</ng-template>
+         <br>  
+         <label>Criminal Record :</label>
+         <div *ngIf="criminalRecord ;else not_completed">
+             Yes
+         </div>
+         <ng-template #not_completed>No</ng-template>
+         <br><br><br>
+         <div class="accept">
+            <input type="button"  id="accept"class="btn btn-success"(click)="accepted()" value="Accept" >
+            <input type="button" style="margin-left:100px ;" id="reject" class="btn btn-danger" (click)="rejected()" value="Reject" >
+            <button class="btn btn-secondary float-right" (click)="gotoList()">Back</button>
+        </div>
+        <br>
+        <br>
+         <br><br>
+        
+        </form>
+    </div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<app-footer></app-footer>

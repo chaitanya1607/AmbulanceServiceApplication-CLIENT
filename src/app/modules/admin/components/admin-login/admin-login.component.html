@@ -1,0 +1,43 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style rel="stylesheet" href="Ambulance-application\src\app\modules\admin\components\admin-login\admin-login.component.css"></style>
+</head> -->
+<!-- <app-header></app-header> -->
+<!-- <body>
+    <div id="loginForm" class="container">
+        <form #ngForm='ngForm' method="post" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label>UserName</label>
+                <input type="text" [(ngModel)]="userName" id="textBox" name="userName" class="form-group" placeholder="Username">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" [(ngModel)]="password" id="textBox" name="password" class="form-group" placeholder="Password">
+            </div>
+            <button class="btn btn-success">Submit</button>
+        </form>
+        <app-loading *ngIf="isSpinning"></app-loading>
+    </div>
+    <br>
+    <br>
+    
+</body>
+</html>
+<app-footer></app-footer>
+<router-outlet></router-outlet> -->
+<!-- <app-header></app-header> -->
+<div class="login">
+    <img src="../../assets/admin.png" style="width:150px;height:150px;" class="img-thumbnail">
+    <form #ngForm='ngForm' method="post" (ngSubmit)="onSubmit()">
+        <h3>Admin</h3>
+        <input type="text" [(ngModel)]="userName" name="userName" placeholder="Username" required="required">
+        <input type="password" [(ngModel)]="password" name="password" placeholder="Password" required="required">
+        <button type="submit" style="background-color:lightblue" class="btn btn-block btn-large"><b>Login</b></button>
+    </form>
+    <app-loading *ngIf="isSpinning"></app-loading>
+</div>

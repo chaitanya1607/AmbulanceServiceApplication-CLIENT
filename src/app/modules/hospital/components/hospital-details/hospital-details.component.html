@@ -1,0 +1,101 @@
+<h3>Hospital Details</h3>
+<app-loading *ngIf="isSpinning"></app-loading>
+<div class="container" *ngIf="!isSpinning">
+        <form>
+        <div *ngIf="hospital" id="detailspage">
+            <div class="form-group">
+               <label>Hospital ID : </label> {{hospital.hospitalId}}
+            </div>
+            <br>
+            <div class="form-group">
+               <label>Hospital Name : </label> {{hospital.hospitalName}}
+            </div>
+            <br>
+            <div class="form-group">
+                <label>Latitude : </label> {{hospital.latitude}}
+             </div>
+             <br>
+             <div class="form-group">
+                <label>Longitude : </label> {{hospital.longitude}}
+             </div>
+            <br>
+            <div class="form-group">
+                <label>Phone Number : </label> {{hospital.phoneNumber}}
+           </div>
+           <br>
+           <div class="form-group">
+               <label>Specialty : </label> {{hospital.speciality}}
+           </div>
+           <br>
+           <div class="form-group">
+                <label>Address : </label> {{hospital.address}}
+           </div>
+           <br>
+           <div class="form-group">
+            <button class="btn btn-info" (click)="viewCertificate()">View Hospital Registration Certificate</button><br>
+           </div>
+           <br>
+           <div *ngIf="isCertificateReady" class="child">
+                    <pdf-viewer class="pdf" [src]="certificate" 
+                     [render-text]="true"[show-all]="false"
+                     [render-text]="true"
+                     [fit-to-page]="true"
+                     [show-borders]="true"
+                     style="display: block;">
+                     </pdf-viewer>      
+                    </div>
+                <div *ngIf="isCertificateReady">
+                    <button type="button" class="btn btn-info" (click)="closeCertificate()">Close File</button>
+                </div>
+            </div>
+                <button class="btn btn-secondary float-right" (click)="back()">Back</button>
+            <br><br>
+</form>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+    <app-footer></app-footer>
+<!-- <div class="mat-display-1" style="text-align:center">Hospital Details</div>
+<app-loading *ngIf="isSpinning"></app-loading>
+<mat-card *ngIf="!isSpinning" class="container">
+    <div *ngIf="hospital" id="detailspage">
+        <mat-card-content>
+            <mat-label >Hospital ID :</mat-label> {{hospital.hospitalId}}<br>
+            <mat-label >Hospital Name :</mat-label> {{hospital.hospitalName}}<br>
+            <mat-label>Hospital Location : </mat-label> {{hospital.location}}<br>
+            <mat-label>Phone Number :      </mat-label> {{hospital.phoneNumber}}<br>
+            <mat-label>Specialty :         </mat-label> {{hospital.speciality}}<br>
+            <mat-label>Address :           </mat-label> {{hospital.address}}<br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <button mat-raised-button style="background-color: rgb(72, 186, 224);" (click)="viewCertificate()">View Hospital Certificate</button> 
+            <div *ngIf="isCertificateReady">
+                <pdf-viewer class="pdf" [src]="certificate" 
+                 [render-text]="true"[show-all]="false"
+                 [render-text]="true"
+                 [fit-to-page]="true"
+                 [show-borders]="true"
+                 style="display:block;">
+                 </pdf-viewer>      
+                </div>
+            <div *ngIf="isCertificateReady">
+                <button mat-raised-button style="background-color:  rgb(72, 186, 224);" (click)="closeCertificate()">Close File</button>
+            </div>
+            <br>
+            <br>
+            <br>
+            <button mat-raised-button class="float-right"  (click)="back()">Back</button> 
+            
+            
+        </mat-card-content>
+        </div>
+</mat-card> -->

@@ -1,0 +1,29 @@
+<app-loading *ngIf="isSpinning"></app-loading>
+<div *ngIf="!isSpinning">
+<div class="container" *ngIf = "isAmbulanceAvailable">
+
+    <h4 style="text-align: center;">Ambulance Alloted</h4>
+    <h6>Ambulance id : {{ambulance.ambulanceId}}</h6>
+    <h6>Ambulance Vehicle Number : <b> {{ambulance.vehicalNumber}} </b></h6> 
+    <h6>Equipments available : </h6>
+    <div *ngFor="let equipment of ambulance.equipments; let i=index">
+        <h6>
+          <b>
+          {{i+1}}.  {{equipment}}
+        </b>
+        </h6>
+        
+</div>
+
+<button class="btn btn-info" style="float:left;" (click)="navigateToUser()">Navigate To User</button>
+<br>
+<button class="btn btn-secondary" style="float:right;" (click)="logOut()">LogOut</button>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

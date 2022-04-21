@@ -1,0 +1,106 @@
+<h3>Ambulance Details</h3>
+<app-loading *ngIf="isSpinning"></app-loading>
+<div class="container" *ngIf="!isSpinning && !isError">
+    <!-- <app-header></app-header> -->
+    <form >
+    <div class="form-group">
+        <label for="vehicalNumber">Vehicle Number  : </label> {{ambulance.vehicalNumber}} 
+    </div>
+    <br>
+    <div class="form-group">
+        <label for="vehicalRegistrationDate">Vehicle Registration Date  :   </label> {{  ambulance.vehicalRegistrationDate | date:"dd/MM/YYYY"}}
+     <div>
+        <button type="button" class="btn btn-info" (click)="viewRcBook()">View RC Book</button>
+            <div> 
+                <div *ngIf="isRcBook" class="child">
+                <pdf-viewer  [src]="rcBook" 
+                 [render-text]="true"
+                 [show-all]="false"
+                 [render-text]="true"
+                 [fit-to-page]="true"
+                 [show-borders]="true"
+                 style="display: block;">
+                 </pdf-viewer>
+                </div>
+            </div>  
+            <div *ngIf="isRcBook">
+                <button type="button" class="btn btn-info" (click)="closeRcBook()">Close File</button>
+            </div>
+    </div>
+</div>
+
+    <div class="form-group">
+        <label for="insuranceValidity">Insurance valid upto  :   </label> {{ambulance.insuranceValidity | date:"dd/MM/YYYY"}}
+    </div>
+    <button type="button" style="margin-top:-18px" class="btn btn-info" (click)="viewInsurance()">View Insurance</button>
+        <div>
+            <div *ngIf="isVehicalInsurance"class="child">
+                <pdf-viewer [src]="vehicalInsurance" 
+                [render-text]="true"
+                [show-all]="false"
+                [render-text]="true"
+                [fit-to-page]="true"
+                [show-borders]="true"
+                style="display: block;">
+            </pdf-viewer>
+        </div>
+        <div *ngIf="isVehicalInsurance">
+            <button type="button" class="btn btn-info" (click)="closeVehicalInsurance()">Close File</button>
+        </div>
+    </div>
+    <br>
+    <div class="form-group">
+        <label >Equipments : </label>
+        <div *ngFor="let equipment of equipmentsList; let i=index">
+            <small>
+              {{i+1}}.  {{equipment}}
+            </small>
+        </div>
+    </div>
+    <br>
+    <hr>
+    <div class="form-group">
+        <label for="ownerName">Owner Name  :   </label> {{  ambulance.ownerName}}
+    </div>
+    <div class="form-group">
+        <label for="ownerAddress">Owner Address  :   </label> {{  ambulance.ownerAddress}}
+    </div>
+    <div class="form-group">
+        <label for="ownerAadharNumber">Owner Aadhar Number  :   </label> {{  ambulance.ownerAadharNumber}}
+    </div>
+            <button type="button" class="btn btn-info" (click)="viewOwnerAadhar()">View Owner Aadhar</button>
+            <div>
+                <div *ngIf="isOwnerAadhar" class="child">
+                    <pdf-viewer class="pdf" [src]="ownerAadhar" 
+                     [render-text]="true"[show-all]="false"
+                     [render-text]="true"
+                     [fit-to-page]="true"
+                     [show-borders]="true"
+                     style="display: block;">
+                     </pdf-viewer>      
+                </div>
+                <div *ngIf="isOwnerAadhar">
+                    <button type="button" class="btn btn-info" (click)="closeOwnerAadhar()">Close File</button>
+                </div>
+            </div>
+    <br>
+        <button class="btn btn-secondary float-right" (click)="goBackToAmbulanceList()">Back</button>
+    <br><br>
+</form>
+    <div *ngIf="isError">
+        {{error}}
+    </div>
+
+    <br>
+</div>
+    <br>
+    <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<app-footer></app-footer>

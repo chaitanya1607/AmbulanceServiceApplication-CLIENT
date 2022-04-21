@@ -1,0 +1,76 @@
+<h3> List Of Bookings</h3>
+<app-loading *ngIf="isSpinning"></app-loading>
+
+<div class = "container" *ngIf = "!isSpinning" >
+    
+    <form #ngForm = 'ngForm' method = "get" (ngSubmit) = "goToBookingList()">
+        <div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <table class="table table-striped table-hover">
+                <tr>
+                    <th>Ambulance Number</th>
+                    <th>Driver Id</th>
+                    <th>Patient Id</th>
+                    <th>Patient Mobile</th>
+                    <th>Hospital Id</th>
+                    <th>Date        </th>
+                    <th>Amount</th>
+                
+                </tr>
+ 
+                <!-- <tr *ngFor = "let driver of driverList ">   
+                    <td >
+                        <tr *ngFor = "let customer of driver.customers">
+                            <td>{{ambulance.vehicalNumber}}</td>
+                            <td>{{driver.driverId}}</td> 
+                            <td>{{customer.customerId}}</td>
+                            <td>{{customer.mobileNumber}}</td>
+							<td>{{customer.nearByHospital.hospitalId}}</td>
+                            <td>{{customer.serviceDate}}</td>
+                            <td>{{customer.billAmount}}</td>
+                        </tr>        
+                    </td>       
+                </tr> -->
+                <tr>
+                            <td>{{vehicleNumber}}</td>
+                            <td>12</td>
+                            <td>1</td>
+                            <td>9998889993</td>
+                            <td>Apollo</td>
+                            <td>12Dec-2020</td>
+                            <td>700</td>
+                   </tr>
+                        <tr>
+                            <td>{{vehicleNumber}}</td>
+                            <td>20</td>
+                            <td>7</td>
+                            <td>9128122993</td>
+                            <td>Apollo</td>
+                            <td>01-12-2020</td>
+                            <td>790</td>
+                        </tr>
+                        <tr>
+                            <td>{{vehicleNumber}}</td>
+                            <td>89</td>
+                            <td>70</td>
+                            <td>998765233</td>
+                            <td>Kings</td>
+                            <td>02-11-2020</td>
+                            <td>1000</td>
+                        </tr>
+                          </table>
+          
+        </div>  
+        <button type="submit" class="btn btn-primary" >Back</button>
+    </form>
+    </div>
+	
+	
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<app-footer></app-footer>

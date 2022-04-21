@@ -1,0 +1,110 @@
+<h3 style="text-align:center;">Ambulance Registration</h3>
+<app-loading *ngIf="isSpinning"></app-loading>
+<div *ngIf="!isSpinning" class="container">
+    <form [formGroup]="RegistrationForm">
+        <div class="form-group">
+            <label for="vehicalNumber">Vehicle Number</label>
+            <input [class.is-invalid]="RegistrationForm.get('vehicalNumber').invalid &&  RegistrationForm.get('vehicalNumber').touched" type="text" class="form-control" id="vehicalNumber" formControlName="vehicalNumber">
+                <small *ngIf="RegistrationForm.get('vehicalNumber').errors?.required && (RegistrationForm.get('vehicalNumber').touched || RegistrationForm.get('vehicalNumber').dirty)" class="text-danger">vehicalNumber is required</small>
+                <small *ngIf="RegistrationForm.get('vehicalNumber').errors?.pattern" class="text-danger">Enter a valid vehicle number(eg:DL 01 AA 1111)</small>  
+         </div>
+        <div class="form-group">
+            <label  for="vehicalRegistrationDate">Vehicle Registration Date</label>
+            <input [class.is-invalid]="RegistrationForm.get('vehicalRegistrationDate').invalid &&  RegistrationForm.get('vehicalRegistrationDate').touched" type="date" min="1990-12-31" [max]="currentDate" class="form-control" id="vehicalRegistrationDate" required formControlName="vehicalRegistrationDate">
+            <div *ngIf="RegistrationForm.get('vehicalRegistrationDate').invalid && RegistrationForm.get('vehicalRegistrationDate').touched">
+                <small *ngIf="RegistrationForm.get('vehicalRegistrationDate').errors?.required" class="text-danger">vehicalRegistrationDate is required</small>
+              </div>
+        </div>
+
+        <div class="custom-file">
+            <input type="file" name="file" id="file" class="custom-file-input" (change)="onRCChanged($event)" required>
+            <label for="file" class="custom-file-label">Choose RC File</label>
+            <label *ngIf="rCBook">{{rCBook.name}}</label>
+        </div>
+
+        <div class="form-group">
+            <label for="insuranceValidity">Insurance Valid upto</label>
+            <input [class.is-invalid]="RegistrationForm.get('insuranceValidity').invalid &&  RegistrationForm.get('insuranceValidity').touched" type="date" [min]="minInsuranceValidityDate" max="2030-12-31" class="form-control" id="insuranceValidity" formControlName="insuranceValidity">
+            <div *ngIf="RegistrationForm.get('insuranceValidity').invalid && RegistrationForm.get('insuranceValidity').touched">
+                <small *ngIf="RegistrationForm.get('insuranceValidity').errors?.required" class="text-danger">insuranceValidity is required</small>
+              </div>
+        </div>
+
+        <div class="custom-file">
+            <input type="file" name="file" id="file" class="custom-file-input" (change)="onInsuranceChanged($event)" required>
+            <label for="file" class="custom-file-label">Choose Insurance File</label>
+            <label *ngIf="vehicalInsurance">{{vehicalInsurance.name}}</label>
+        </div>
+<br>
+<br>
+        <div id="eq" class="form-group">
+            <label for="equipments">Equipments:</label>
+            <div *ngFor="let equipment of equipmentList">
+                <label>
+                    <input type="checkbox" [value]="equipment.name" (change)="addEquipment($event)"/>
+                    {{equipment.name}}
+                </label>
+            </div>
+        </div>
+<hr>
+        <div class="form-group">
+            <label for="ownerName">Owner Name</label>
+            <input [class.is-invalid]="RegistrationForm.get('ownerName').invalid &&  RegistrationForm.get('ownerName').touched" type="text" class="form-control" id="ownerName" formControlName="ownerName" maxlength="16">
+            <div *ngIf="RegistrationForm.get('ownerName').invalid && RegistrationForm.get('ownerName').touched">
+                <small *ngIf="RegistrationForm.get('ownerName').errors?.required" class="text-danger">ownerName is required</small>
+                <small *ngIf="RegistrationForm.get('ownerName').errors?.minlength" class="text-danger">min 8 characters required</small>
+                <small *ngIf="RegistrationForm.get('ownerName').errors?.maxlength" class="text-danger">max 16 characters allowed</small>
+                <small *ngIf="RegistrationForm.get('ownerName').errors?.pattern" class="text-danger">Name cannot have special characters except space</small>
+              </div>
+        </div>
+
+        <div class="form-group">
+            <label for="ownerAddress">Owner Address</label>
+            <input [class.is-invalid]="RegistrationForm.get('ownerAddress').invalid &&  RegistrationForm.get('ownerAddress').touched" type="text" class="form-control" id="ownerAddress" required formControlName="ownerAddress" maxlength="100">
+            <div *ngIf="RegistrationForm.get('ownerAddress').invalid && RegistrationForm.get('ownerAddress').touched">
+                <small *ngIf="RegistrationForm.get('ownerAddress').errors?.required" class="text-danger">ownerAddress is required</small>
+                <small *ngIf="RegistrationForm.get('ownerAddress').errors?.minlength" class="text-danger">min 8 characters required</small>
+                <small *ngIf="RegistrationForm.get('ownerAddress').errors?.maxlength" class="text-danger">max 100 characters allowed</small>
+              </div>
+        </div>
+     
+        <div class="form-group">
+            <label for="ownerAadharNumber">Owner Aadhar Number</label>
+            <input [class.is-invalid]="RegistrationForm.get('ownerAadharNumber').invalid &&  RegistrationForm.get('ownerAadharNumber').touched" type="text" class="form-control" id="ownerAadharNumber" required formControlName="ownerAadharNumber">
+            <div *ngIf="RegistrationForm.get('ownerAadharNumber').invalid && RegistrationForm.get('ownerAadharNumber').touched">
+                <small *ngIf="RegistrationForm.get('ownerAadharNumber').errors?.required" class="text-danger">ownerAadharNumber is required</small>
+                <small *ngIf="RegistrationForm.get('ownerAadharNumber').errors?.pattern" class="text-danger">Enter a valid AadharNumber(eg:XXXX XXXX XXXX) and it cannot start with 0 or 1</small>
+              </div>
+        </div>
+        
+        <div class="custom-file">
+            <input type="file" name="file" id="file" class="custom-file-input" (change)="onAadharChanged($event)" required>
+            <label for="file" class="custom-file-label">Choose Aadhaar File</label>
+            <label *ngIf="ownerAadhar">{{ownerAadhar.name}}</label>
+        </div>
+     <br>
+     <br>
+        <div>
+            <button type="submit" class="btn btn-success float-left-bottom" [disabled]="(!RegistrationForm.valid)" (click)="onSubmit(RegistrationForm)">Register</button>
+            <button type="button" style="margin-left:2.5em" class="btn btn-secondary float-right" (click)="goBack()">Back</button>
+        </div
+        >
+        <br>
+        <br>
+        </form>
+        </div>
+        <div *ngIf="isError">
+            {{error}}
+        </div>
+    <br>
+    <br>
+    <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+    <app-footer></app-footer>

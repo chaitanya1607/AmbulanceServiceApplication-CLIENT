@@ -1,0 +1,197 @@
+
+<div class="panel-heading">
+    <h3 style="text-align: center;" class="panel-title">Update Ambulance</h3>
+</div>
+<app-loading *ngIf="isSpinning"></app-loading>
+<div  *ngIf="!isSpinning && !isError" class="container">
+<form #updateAmbulanceForm="ngForm" (ngSubmit)="onSubmit()">
+    <div class="panel panel-primary">
+        <div class="panel-body">
+            <div class="form-group">
+        <label for="vehicalNumber">Vehical Number</label>{{ambulance.vehicalNumber}}
+            </div>
+   </div>
+    </div>
+    <div class="form-group">
+        <label for="vehicalRegistrationDate">Vehical Registration Date : {{ambulance.vehicalRegistrationDate | date:'dd/MM/YYYY'}}</label>
+        <input type="date" [min]="1990-12-31" [max]="currentDate" name="vehicleRegistrationDate" [(ngModel)]="vehicalRegistrationDate">
+        <!-- <input type="date" min="1990-12-31" max="2020-12-16" name="vehicalRegistrationDate"
+        [class.is-invalid]="vehicalRegistrationDate.invalid && vehicalRegistrationDate.touched" 
+        #vehicalRegistrationDate="ngModel" name="vehicalRegistrationDate" 
+        class="form-control"
+         id="vehicalRegistrationDate" [ngModel]="vehicalRegistrationDate" >
+       <small class='text-danger' [class.d-none]="insuranceValidity.valid || insuranceValidity.untouched">insuranceValidity is required</small> -->
+    </div>
+    <button type="button" class="btn btn-info" (click)="viewRcBook()">view RcBook</button>
+        
+            <div *ngIf="isRcBook" class="child">
+                <pdf-viewer  [src]="currentRcBook" 
+                [render-text]="true"
+                [show-all]="false"
+                [render-text]="true"
+                [fit-to-page]="true"
+                [show-borders]="true"
+                 style="display: block;">
+                 </pdf-viewer>
+                </div>
+            
+            <div *ngIf="isRcBook">
+                <button type="button" class="btn btn-info" (click)="closeRcBook()">close File</button>
+            </div>
+        
+    
+    <br>
+        <div class="custom-file">
+            <input type="file" name="file" id="file" class="custom-file-input" (change)="onRCChanged($event)">
+            <label for="file" class="custom-file-label">Choose a file</label>
+            <label *ngIf="rCBook">{{rCBook.name}}</label>
+
+        </div>
+    <div class="form-group">
+        <label for="insuranceValidity">Insurance valid upto : {{ambulance.insuranceValidity | date:'dd/MM/YYYY'}}</label>
+        <input type="date" [min]="minInsuranceValidityDate" max="2030-12-31" name="insuranceValidity" [(ngModel)]="insuranceValidity">
+    </div>
+    <button type="button" class="btn btn-info" (click)="viewInsurance()">view insurance</button>
+                <div *ngIf="isVehicalInsurance"class="child">
+                    <pdf-viewer [src]="currentVehicalInsurance" 
+                    [render-text]="true"
+                    [show-all]="false"
+                    [render-text]="true"
+                    [fit-to-page]="true"
+                    [show-borders]="true"
+                     style="display: block;">
+                     </pdf-viewer>
+                </div>
+                <div *ngIf="isVehicalInsurance">
+                    <button type="button" class="btn btn-info" (click)="closeVehicalInsurance()">close File</button>
+                </div>
+        
+        <br>
+    <div class="custom-file">
+        <input type="file" name="file" id="file" class="custom-file-input" (change)="onInsuranceChanged($event)">
+        <label *ngIf="vehicalInsurance">{{vehicalInsurance.name}}</label>
+        <label for="file" class="custom-file-label">Choose a file</label>
+    </div>
+   <br>
+    <br>
+    <div class="equipments">
+        <label>Equipments Available :</label>
+        <div *ngFor="let equipment of equipmentList">
+            <input [checked]="equipment.isChecked" (click)="change(equipment)" type="checkbox" name="equipments">
+            <label>  {{equipment.name}}</label> 
+
+            <!-- <div *ngIf="equipment.isChecked; else elseBlock">
+                <input checked=true type="checkbox" (change)="addEquipment($event,equipment.name)" name="equipments">
+                <label>  {{equipment.name}}</label> 
+            </div>
+            <ng-template #elseBlock>
+                <input type="checkbox"(change)="addEquipment($event,equipment.name)" name="equipments">
+                <label>  {{equipment.name}}</label> 
+            </ng-template> -->
+            
+        </div>
+
+
+        <!-- <p>
+            <input  type="checkbox" id="oxygen" (change)='addEquipment($event,"OXYGEN CYLINDER")' name="equipments" required>
+            <label for="oxygen">Oxygen Cylinder</label>
+        </p>
+        <p>
+            <input type="checkbox" id="stretcher" (change)='addEquipment($event,"STRETCHER")' name="equipments" required>
+            <label for="stretcher">Stretcher</label>
+        </p>
+        <p>
+            <input type="checkbox" (change)='addEquipment($event,"DEFIBRILLATOR")' id="defibrillator" name="equipments" >
+            <label for="defibrillator">Defibrillator</label>
+        </p>
+        <p>
+            <input type="checkbox" (change)='addEquipment($event,"ECG")' id="ECG" name="equipments" >
+            <label for="ECG">ECG</label>
+        </p>
+        <p>
+            <input type="checkbox" (change)='addEquipment($event,"PULSE OXIMETER")' id="pulse" name="equipments" >
+            <label for="pulse">Pulse Oximeter</label>
+    </p> -->
+    <hr>
+    </div>
+    <div class="form-group">
+        <label for="ownerName">Owner Name</label>
+        <input type="text" 
+        #ownerName="ngModel" name="ownerName"  id="ownerName" 
+        [(ngModel)]="ambulance.ownerName" class="form-control"
+        pattern="^[A-Za-z\s]{1,}[\.]{0,1}[A-Za-z\s]{2,25}$"
+        [class.is-invalid]="ownerName.invalid && ownerName.touched">
+        <div *ngIf="ownerName.errors && (ownerName.invalid || ownerName.touched)">
+            <small class="text-danger" *ngIf="ownerName.errors.required">Owner Name is required</small>
+            <small class="text-danger" *ngIf="ownerName.errors.pattern">Owner Name must be only alphabets & at least of 3 characters</small>
+   </div>
+    </div>
+    <div class="form-group">
+        <label for="ownerAddress">Owner Address</label>
+        <input type="text"  name="ownerAddress"  id="ownerAddress" required [(ngModel)]="ambulance.ownerAddress"
+        #ownerAddress="ngModel" class="form-control"
+        pattern=".{10,30}" 
+        [class.is-invalid]="ownerAddress.invalid && ownerAddress.touched">
+        <div *ngIf="ownerAddress.errors && (ownerAddress.invalid || ownerAddress.touched)">
+            <small class="text-danger" *ngIf="ownerAddress.errors.required">Address is required</small>
+            <small class="text-danger" *ngIf="ownerAddress.errors.pattern">Enter a valid Address(length 10-30 character)</small>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="ownerAadharNumber">Owner Aadhar Number</label>
+        <input type="text"   name="ownerAadharNumber"  id="ownerAadharNumber" required [(ngModel)]="ambulance.ownerAadharNumber" 
+        #ownerAadharNumber="ngModel" class="form-control"
+        pattern="^([2-9]{1}[0-9]{3})( )([0-9]{4})( )([0-9]{4})$"
+        [class.is-invalid]="ownerAadharNumber.invalid && ownerAadharNumber.touched" >
+        <div *ngIf="ownerAadharNumber.errors && (ownerAadharNumber.invalid || ownerAadharNumber.touched)">
+            <small class="text-danger" *ngIf="ownerAadharNumber.errors.required">Aadhar Number is required</small>
+            <small class="text-danger" *ngIf="ownerAadharNumber.errors.pattern">Enter a valid AadharNumber(eg:XXXX XXXX XXXX) and it cannot start with 0 or 1</small>
+        </div>
+    </div>
+    <button type="button" class="btn btn-info" (click)="viewOwnerAadhar()">view Owner Aadhar</button>
+        
+                <div *ngIf="isOwnerAadhar" class="child">
+                    <pdf-viewer class="pdf" [src]="currentOwnerAadhar" 
+                    [render-text]="true"
+                    [show-all]="false"
+                    [render-text]="true"
+                    [fit-to-page]="true"
+                    [show-borders]="true"
+                     style="display: block;">
+                     </pdf-viewer>      
+                </div>
+            
+                <div *ngIf="isOwnerAadhar">
+                    <button type="button" class="btn btn-info" (click)="closeOwnerAadhar()">close File</button>
+                </div>           
+           
+            <br>
+    <div class="custom-file">
+        <input type="file" name="file" id="file" class="custom-file-input" (change)="onAadharChanged($event)">
+        <label for="file" class="custom-file-label">Choose a file</label>
+        <label *ngIf="ownerAadhar">{{ownerAadhar.name}}</label>
+    </div>
+    <br>
+    <br>
+    <div>
+        <button type="submit"  [disabled]="updateAmbulanceForm.form.invalid" class="btn btn-success float-left ">Update</button>
+        <button type="button" style="margin-left:2.5em" class="btn btn-secondary float-right" (click)="goBack()">Back</button>
+      </div>
+      <br>
+    </form>
+    <div *ngIf="isError">
+        {{error}}
+    </div>
+    
+    
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

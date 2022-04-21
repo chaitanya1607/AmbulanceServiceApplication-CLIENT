@@ -1,0 +1,202 @@
+<h3 style="text-align:center">Driver Registration</h3>
+<app-loading *ngIf="isSpinning"></app-loading>
+<div *ngIf="!isSpinning" class="container">
+    <form [formGroup]="RegistrationForm">
+        <div class="form-group">
+            <label for="fullName">Full Name :</label>
+            <input [class.is-invalid]="RegistrationForm.get('fullName').invalid &&  RegistrationForm.get('fullName').touched" type="text" formControlName="fullName" class="form-control" id="fullName" placeholder="Please enter your Full Name" name="fullName">
+            <div *ngIf="RegistrationForm.get('fullName').invalid && (RegistrationForm.get('fullName').touched || RegistrationForm.get('fullName').dirty)" > 
+            <small *ngIf="RegistrationForm.get('fullName').errors?.required" class="text-danger">Full Name is required</small>
+                <small *ngIf="RegistrationForm.get('fullName').errors?.minLength" class="alert alert-danger">Min 3 characters required</small>
+                <small *ngIf="RegistrationForm.get('fullName').errors?.maxLength" class="text-danger">Max 20 characters allowed</small>
+                <small *ngIf="RegistrationForm.get('fullName').errors?.pattern" class="text-danger">Name cannot have special characters except space</small>
+            </div>
+        </div>
+        <div class="custom-file">
+            <input type="file" name="photo" id="photo" class="custom-file-input" (change)="onPhotoChanged($event)" required>
+            <label for="file" class="custom-file-label">Choose your Photo</label>
+            <br>
+            <br>
+            <img *ngIf="photo"  [src]="url" width="100" height="100" >
+            <br>
+            <br>
+        </div>
+
+
+        <div class="form-group">
+            <label for="dateOfBirth">Data Of Birth :</label>
+            <input [class.is-invalid]="RegistrationForm.get('dateOfBirth').invalid &&  RegistrationForm.get('dateOfBirth').touched" placeholder="Please choose your date of birth" type="date" min="1980-01-01" max="1996-01-01" id="dateOfBirth" formControlName="dateOfBirth" class="form-control" name="dateOfBirth">
+            <div *ngIf="RegistrationForm.get('dateOfBirth').errors?.invalid && RegistrationForm.get('dateOfBirth').touched">
+                <small *ngIf="RegistrationForm.get('dateOfBirth').errors?.required" class="text-danger">Date of Birth required</small>
+            </div> 
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Gender :</label> 
+            <div class="form-check">
+            <input type="radio" class="form-check-input" name="gender" value="male" formControlName="gender">
+            <label class="form-check-label">Male</label>
+            </div>
+            <div class="form-check">
+            <input type="radio" class="form-check-input" name="gender" value="female" formControlName="gender">
+            <label class="form-check-label">Female</label>    
+        </div>
+            <div class="form-check">
+            <input type="radio" class="form-check-input" name="gender" value="others" formControlName="gender">
+            <label class="form-check-label">Others</label>    
+        </div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email :</label>
+            <input  type="text"  [class.is-invalid]="RegistrationForm.get('email').invalid &&  RegistrationForm.get('email').touched" placeholder="Please enter your email" formControlName="email" class="form-control" name="email" id="email">
+            <div *ngIf="RegistrationForm.get('email').invalid && RegistrationForm.get('email').touched">
+                <small *ngIf="RegistrationForm.get('email').errors?.required" class="text-danger">Email ID is required</small>
+                <small *ngIf="RegistrationForm.get('email').errors?.email" class="text-danger">Please enter valid Email ID</small>
+                <small *ngIf="RegistrationForm.get('email').errors?.pattern" class="text-danger">Please enter valid Email ID(eg:name@domain)</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="mobileNumber">Mobile Number :</label>
+            <input [class.is-invalid]="RegistrationForm.get('mobileNumber').invalid &&  RegistrationForm.get('mobileNumber').touched" type="text" placeholder="Please Enter Mobile Number" id="mobileNumber" formControlName="mobileNumber" class="form-control" name="mobileNumber" maxLength="10">
+            <div *ngIf="RegistrationForm.get('mobileNumber').invalid && RegistrationForm.get('mobileNumber').touched">
+                   <small *ngIf="RegistrationForm.get('mobileNumber').errors?.required" class="text-danger">MobileNumber is required</small>
+                   <small *ngIf="RegistrationForm.get('mobileNumber').errors?.pattern" class="text-danger" >Mobile Number must contain only numbers and it should be 10 digits</small>
+        
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="address">Address :</label>
+            <input [class.is-invalid]="RegistrationForm.get('address').invalid &&  RegistrationForm.get('address').touched" type="text" name="address" placeholder="Please enter you address" id="address" formControlName="address" class="form-control" maxlength="100">
+            <div *ngIf="RegistrationForm.get('address').invalid && RegistrationForm.get('address').touched">
+                <small *ngIf="RegistrationForm.get('address').errors?.required" class="text-danger">Address Required</small>
+                <small *ngIf="RegistrationForm.get('address').errors?.minLength " class="text-danger">AtLeast 10 characters required</small>
+                <small *ngIf="RegistrationForm.get('address').errors?.maxLength " class="text-danger">AtMost 100 characters allowed</small>
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label for="aadharNumber">Aadhar Number :</label>
+            <input [class.is-invalid]="RegistrationForm.get('aadharNumber').invalid &&  RegistrationForm.get('aadharNumber').touched" type="text" placeholder="Please enter your Aadhar Number" id="aadharNumber" name="aadharNumber" class="form-control" formControlName="aadharNumber" maxlength="15">
+            <div *ngIf="RegistrationForm.get('aadharNumber').invalid && RegistrationForm.get('aadharNumber').touched">
+                <small *ngIf="RegistrationForm.get('aadharNumber').errors?.required" class="text-danger">Aadhar Number Required</small>
+                <small *ngIf="RegistrationForm.get('aadharNumber').errors?.pattern" class="text-danger">Enter a valid AadharNumber(eg:XXXX XXXX XXXX)</small>      
+            </div>
+        </div>
+
+        <div class="custom-file">
+            <input type="file" name="file" class="custom-file-input" (change)="onAadharChanged($event)" required>
+            <label for="file" class="custom-file-label">Choose Aadhaar File</label>
+            <label *ngIf="aadhar">{{aadhar.name}}</label>
+        </div>
+
+
+        <div class="form-group">
+            <label for="drivingLicenceNumber">Driving License Number :</label>
+            <input [class.is-invalid]="RegistrationForm.get('drivingLicenceNumber').invalid && RegistrationForm.get('drivingLicenceNumber').touched" type="text" placeholder="Please enter your driving license number" maxlength="16" formControlName="drivingLicenceNumber" class="form-control" name="drivingLicenceNumber">
+            <div *ngIf="RegistrationForm.get('drivingLicenceNumber').invalid && RegistrationForm.get('drivingLicenceNumber').touched">
+                <small *ngIf="RegistrationForm.get('drivingLicenceNumber').errors?.required" class="text-danger">Driving License Number Required</small>
+                <small *ngIf="RegistrationForm.get('drivingLicenceNumber').errors?.pattern" class="text-danger">Enter a valid Driving License Number that starts with 19 or 20(eg:TN09 19345678901)</small> 
+            </div>
+        </div>
+
+        <div class="custom-file">
+            <input type="file" name="file" class="custom-file-input" (change)="onLicenseChanged($event)" required>
+            <label for="file" class="custom-file-label">Choose the License File</label>
+            <label *ngIf="license">{{license.name}}</label>
+        </div>
+
+        <div class="form-group">
+            <label for="evocCourse">Completed Emergency Vehicle Operator Course ?</label>
+            <div class="form-check">
+                <input type="radio" [value]="true" name="evocCourse"  formControlName="evocCourse" class="form-check-input">
+                <label class="form-check-label">Yes</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" [value]="false" name="evocCourse"  formControlName="evocCourse" class="form-check-input"  checked>
+                <label class="form-check-label">No</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="evocCourse">Completed Cardiopulmonary Resuscitation Course ?</label>
+            <div class="form-check">
+                <input type="radio" [value]="true" name="cprCourse"  formControlName="cprCourse" class="form-check-input">
+                <label class="form-check-label">Yes</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" [value]="false" checked name="cprCourse"  formControlName="cprCourse" class="form-check-input">
+                <label class="form-check-label">No</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="evocCourse">Completed Basic Life Support Course ?</label>
+            <div class="form-check">
+                <input type="radio" [value]="true" name="blsCourse" formControlName="blsCourse" class="form-check-input">
+                <label class="form-check-label">Yes</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" [value]="false" checked name="blsCourse" formControlName="blsCourse" class="form-check-input">
+                <label class="form-check-label">No</label>
+            </div>
+        </div>
+ 
+        <div class="form-group">
+            <label for="evocCourse">Have any Criminal Record ?</label>
+            <div class="form-check">
+                <input type="radio" [value]="true" name="criminalRecord" formControlName="criminalRecord" class="form-check-input">
+                <label class="form-check-label">Yes</label>
+            </div>
+            <div class="form-check">
+                <input type="radio" [value]="false"  name="criminalRecord" formControlName="criminalRecord" class="form-check-input" checked>
+                <label class="form-check-label">No</label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="userName">Username :</label>
+            <input type="text" [class.is-invalid]="RegistrationForm.get('userName').invalid && RegistrationForm.get('userName').touched" class="form-control" name="userName" placeholder="Please enter your userName" formControlName="userName" maxlength="10" class="form-control">
+            <div *ngIf="RegistrationForm.get('userName').invalid && RegistrationForm.get('userName').touched">
+                <small *ngIf="RegistrationForm.get('userName').errors?.required" class="text-danger">Username is required</small>
+                <small *ngIf="RegistrationForm.get('userName').errors?.pattern" class="text-danger">Username must contain 1alphabet and 1digit characters</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password :</label>
+            <input type="password" [class.is-invalid]="RegistrationForm.get('password').invalid && RegistrationForm.get('password').touched" class="form-control" name="password" placeholder="Please enter your password" formControlName="password" class="form-control">
+            <div *ngIf="RegistrationForm.get('password').invalid && RegistrationForm.get('password').touched">
+                <small *ngIf="RegistrationForm.get('password').errors.required" class="text-danger">Password is required</small>
+                <small *ngIf="RegistrationForm.get('password').errors.pattern" class="text-danger">Password must contain 1 lowercase,1Uppercase,1Special character, 1digit characters with minimum of 8 characters</small>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password :</label>
+            <input type="password" [class.is-invalid]="RegistrationForm.get('confirmPassword').invalid && RegistrationForm.get('confirmPassword').touched" class="form-control" name="confirmPassword" placeholder="Please enter your confirmPassword" formControlName="confirmPassword" class="form-control">
+            <div *ngIf="RegistrationForm.get('confirmPassword').invalid && RegistrationForm.get('confirmPassword').touched">
+                <small *ngIf="RegistrationForm.get('confirmPassword').errors.required" class="text-danger">ConfirmPassword is required</small>
+                <!-- <small *ngIf="RegistrationForm.get('confirmPassword').errors.pattern" class="text-danger">ConfirmPassword must contain 1 lowercase,1Uppercase,1Special character, 1digit characters with minimum of 8 characters</small> -->
+                <small *ngIf="RegistrationForm.get('confirmPassword').errors.mustMatch" class="text-danger">Password and Confirm Password don't match</small>
+            </div>
+        </div>
+        <br>
+     <br>
+        <div>
+            <button type="submit" class="btn btn-success float-left-bottom" [disabled]="(!RegistrationForm.valid)" (click)="onSubmit(RegistrationForm)">Register</button>
+        </div>
+        <br>
+        <br>
+    </form>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>

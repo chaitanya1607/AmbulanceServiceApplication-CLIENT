@@ -1,0 +1,83 @@
+<!--<app-header></app-header>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+    <div>
+      <h2>Hospitals List</h2>
+    </div>
+  <app-loading *ngIf="isSpinning"></app-loading>
+  <div class="table-align">
+  <div class="panel-body" *ngIf="!isSpinning">
+    <div class="table-wrapper-scroll-y my-custom-scrollbar">
+      <table>
+          <thead>
+              <tr>
+              <th>Hospital Name</th>
+              <th>Phone Number</th>
+             
+              <th></th>
+              </tr>    
+          </thead>
+          <tbody>
+              <tr *ngFor="let hospital of hospitals " (change)="changeHospitalId(hospital.hospitalId)">    
+                  <td>{{hospital.hospitalName}}</td>
+                  <td>{{hospital.phoneNumber}}</td>
+                 
+                  <td><input type="radio" value=hospital.hospitalId id="hospitalId" name="hospitalId" (change)="changeHospitalId(hospital.hospitalId)"></td>
+                  <!-- <td><button (click)="hospitalDetails(hospital.hospitalId)" type="button" class="btn btn-info">Details</button></td>
+                  <td><button (click)="updateHospital(hospital.hospitalId)" type="button" class="btn btn-primary">Update</button></td>
+                  <td><button (click)=" deleteHospital(hospital.hospitalId)" type="button" class="btn btn-danger">Remove</button></td> -->
+              </tr>
+             
+          </tbody> 
+          
+     </table>
+    </div>
+     <table class="buttonsTable">
+       <tbody>
+      <tr>
+        <td></td>
+        <td style="width: 350px;">
+          <button class="btn btn-info" [disabled]="disabled()" (click)="updateHospital()">Update</button>
+        </td>
+        <td style="width: 350px;">
+          <button class="btn btn-danger" [disabled]="disabled()" (click)="deleteHospital()">Delete</button>
+        </td>
+        <td style="width: 350px;">
+          <button class="btn btn-primary" [disabled]="disabled()" (click)="hospitalDetails()">View</button>
+        </td>
+      </tr>
+      <tr>
+        <td style="width: 250px;">
+          <button (click)=" addHospital()" class="btn btn-success">Add Hospital</button>
+        </td>
+        <td></td>
+        <td></td>
+           <td style="width: 250px;">
+          <button (click)="backToHome()"  class="btn btn-secondary float-right">Back</button>
+        </td>
+      </tr>
+    </tbody>
+     </table>
+     <br><br>
+     <br> 
+ 
+    </div>
+   </div>
+</body>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<app-footer></app-footer>
+</html>

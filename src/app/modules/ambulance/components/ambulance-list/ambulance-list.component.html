@@ -1,0 +1,94 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<!-- <body> -->
+
+<body>
+  <div>
+    <h2>Ambulances List</h2>
+    <div>
+      <app-loading *ngIf="isSpinning"></app-loading>
+    </div>
+    <div class="error" *ngIf="isError">
+      {{error}}
+    </div>
+  <div class="panel-body" *ngIf="!isSpinning && !isError">
+    <div class="table-align">
+      <div class="table-wrapper-scroll-y my-custom-scrollbar">
+       <table>
+        <thead>
+          <tr>
+            <th>AmbulanceNumber</th>
+            <th>Ambulance Owner</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <div> -->
+            <tr *ngFor = "let ambulance of ambulances">
+            <td>{{ambulance.vehicalNumber}}</td>
+            <td>{{ambulance.ownerName}}</td>
+            <td><input type="radio" value=ambulance.vehicalNumber id="vehicalNumber" name="vehicalNumber" (change)="changeAmbulanceNumber(ambulance.vehicalNumber)"></td>
+            <!-- <td><button (click)="updateAmbulance(ambulance.vehicalNumber)" class="btn btn-info" style="margin-left: 10px">Update</button></td> 
+                <td><button (click)="deleteAmbulance(ambulance.vehicalNumber)" class="btn btn-danger" style="margin-left: 10px">Delete</button></td>  
+                <td><button (click)="viewAmbulance(ambulance.vehicalNumber)" class="btn btn-info" style="margin-left: 10px">view</button></td> -->
+            
+          </tr>
+          <!-- </div> -->
+         
+        </tbody>
+       </table>
+      </div>
+      <br>
+      <table class="buttonsTable">
+        <tbody>
+        <tr>
+          <td></td>
+          <td style="width: 350px;">
+            <button class="btn btn-primary" [disabled]="disabled()" (click)="updateAmbulance()">Update</button>
+          </td>
+          <td style="width: 350px;">
+            <button class="btn btn-danger" [disabled]="disabled()" (click)="deleteAmbulance()">Delete</button>
+          </td>
+          <td style="width: 350px;">
+            <button class="btn btn-info" [disabled]="disabled()" (click)="viewAmbulance()">View</button>
+          </td>
+        </tr>
+        <tr>
+          <td style="width: 250px;">
+            <button (click)="addAmbulance()" class="btn btn-success">Add Ambulance</button>
+          </td>
+          <td></td>
+          <td></td>
+          <td style="width: 250px;">
+          <button (click)="goBack()" class="btn btn-secondary float-right">Back</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <br>
+
+      <br>  <br>
+    </div>
+    </div>
+    </div>
+
+<!-- </body> -->
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+</body>
+</html>
+<app-footer></app-footer>

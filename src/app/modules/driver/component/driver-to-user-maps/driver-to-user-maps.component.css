@@ -1,0 +1,14 @@
+agm-map {
+    height: 600px;
+  }
+  .container{
+    display:block;
+    width:90%;
+    height:100%;
+    margin:2rem auto -50px;
+    border-radius: 1px;
+    padding:50px;
+    border-color:solid rgba(0, 0, 0, 0.692);
+    box-shadow: 5px 10px 20px ;
+    background-color: white;
+}

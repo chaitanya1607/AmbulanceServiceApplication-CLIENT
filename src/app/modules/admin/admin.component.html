@@ -1,0 +1,92 @@
+<!-- <app-header></app-header> -->
+<nav class="navbar navbar-expand-sm bg-info navbar-dark">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a  *ngIf="isAdmin"  routerLink="ambulancelist" class="nav-link" routerLinkActive="active">Ambulance List</a>
+        </li>
+        <li class="nav-item">
+            <a *ngIf="isAdmin" routerLinkActive="active" class="nav-link" routerLink="hospital">Hospitals List</a>
+        </li>
+        <li class="nav-item">
+            <a *ngIf="isAdmin" routerLinkActive="active" class="nav-link" routerLink="driver">Drivers List</a>
+        </li>
+        <li class="nav-item">
+            <a *ngIf="isAdmin" routerLinkActive="active" class="nav-link" routerLink="bookingList">Bookings List</a>
+        </li>
+        <li class="nav-item">
+            <a *ngIf="isAdmin" class="nav-link" routerLink="applicantsList" routerLinkActive="active" >Driver Applicants List</a>
+        </li>
+        <li class="nav-item">
+            <a *ngIf="isAdmin" class="nav-link" routerLink="logout" routerLinkActive="active" >Logout</a>
+        </li>
+    </ul>
+</nav>
+<div class="container">
+    <h3 style="text-align: center;"><b>Welcome Admin</b></h3>
+    <hr>
+    <table>
+        <tr>
+            <td>
+    <div class="card" >
+        <img class="card-img-top img-thumbnail center" src="../assets/ambulanceIcon.png" style="width:150px;height:170px;margin-left:25px;">
+        <div class="card-body">
+            <h4 class="card-title">Ambulances</h4>
+            <p class="card-text">Number of Ambulance available : <b>{{totalNumberOfAmbulances}}</b></p> 
+          </div>
+    </div>
+</td>
+<td></td>
+<td>
+    <div class="card">
+        <img class="card-img-top img-thumbnail center" src="../assets/hospital.png" style="width:150px;height:170px;margin-left:25px;">
+        <div class="card-body">
+            <h4 class="card-title">Hospitals</h4>
+            <p class="card-text">Number of Hospitals available : <b>{{totalNumberOfHospitals}}</b></p> 
+          </div>
+    </div>
+</td>
+<td></td>
+<td>
+    <div class="card">
+        <img class="card-img-top img-thumbnail center" src="../assets/driver.jpg" style="width:150px;height:170px;margin-left:20px;">
+        <div class="card-body">
+            <h4 class="card-title">Drivers</h4>
+            <p class="card-text">Number of Drivers available : <b>{{driverCount}}</b></p> 
+          </div>
+    </div>
+</td>
+<td></td>
+<td>
+    <div class="card">
+        <img class="card-img-top img-thumbnail center" src="../assets/applicants.png" style="width:150px;height:170px;margin-left:25px;" >
+        <div class="card-body">
+            <h4 class="card-title">Applicants</h4>
+            <p class="card-text">Number of Applicants available : <b>{{totalNumberOfDriverApplicants}}</b></p> 
+          </div>
+    </div>
+</td>
+<td></td>
+<td>
+    <div class="card">
+        <img class="card-img-top img-thumbnail center" src="../assets/booking.png" style="width:150px;height:170px;margin-left:25px;">
+        <div class="card-body">
+            <h4 class="card-title">Bookings</h4>
+            <p class="card-text">Number of Bookings last month : <b>{{totalNumberOfAmbulances}}</b></p>
+          </div>
+    </div>
+</td>
+<td></td>
+</tr>
+</table>
+    
+    
+
+</div>
+<router-outlet>
+</router-outlet>
+<app-footer></app-footer>
+<!-- <footer class="footer">
+    <div class="container">
+        <span>All rights reserved@mindtree</span>
+    </div>
+</footer> -->

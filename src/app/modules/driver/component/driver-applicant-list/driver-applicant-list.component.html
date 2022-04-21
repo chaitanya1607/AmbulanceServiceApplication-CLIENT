@@ -1,0 +1,61 @@
+<!-- <app-header></app-header> -->
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h2>Applicants List</h2>  
+    </div>
+    <div *ngIf = "!isSpinning" class="panel-body" id="table-align">
+       <div class="table-wrapper-scroll-y my-custom-scrollbar" >
+        <table >
+            <thead>
+                <tr>
+                    <th>Applicant Name</th>
+                    <th>Driving Licence Number</th>
+                    <th>Mobile Number</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let applicant of applicants">
+                  
+                    <td >{{applicant.fullName}}</td>
+                    <td>{{applicant.drivingLicenceNumber}}</td>
+                    <td>{{applicant.mobileNumber}}</td>
+                    <td>
+                        <input type="radio" value=applicant.driverId id="driverId" name="driverId" (change)="changeDriverId(applicant.driverId)">
+            
+                        <!-- <button class="btn btn-info" (click)="viewApplicantDetails(applicant.driverId)">View Applicant Details</button> -->
+                    </td>
+                    </tr>   
+                   
+            </tbody>
+        </table>
+       </div>
+       
+        <table class = "buttonsTable">
+                <tr>
+                    <td width="200px">
+                        <button class="btn btn-info" [disabled]="disabled()" (click)="viewApplicantDetails()">View</button>
+                    </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td width="1000px">
+                        <button type="button" class="btn btn-secondary float-right" (click)="goBack()">Back</button>
+                    </td>
+                </tr>
+        </table>
+
+    </div>
+    <app-loading *ngIf="isSpinning"></app-loading>
+    <br>
+    <br>
+    <br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+    <app-footer></app-footer>

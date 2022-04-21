@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>Booking details</title>
+    </head>
+    <body >
+        <!-- <app-header></app-header> -->
+        <h3 >Bookings</h3>   
+        <div *ngIf = "!isSpinning" id="table-align">
+        
+ 
+            <div class="table-wrapper-scroll-y my-custom-scrollbar">
+        <table cellspacing="15" class = "table table-striped table-hover">    
+            <tr>
+                <th>Ambulance Id</th>
+                <th>AmbulancVehicle Number</th>
+                <th></th>
+            </tr>         
+                <tr height = "50px" *ngFor = "let ambulance of ambulanceList" >
+                  
+                    <td > {{ambulance.ambulanceId}}
+                         </td>
+                         <td>{{ambulance.vehicalNumber}}</td>
+                         <td ><input type="radio" value=ambulance.vehicalNumber id="vehicalNumber" name="vehicalNumber" (change)="changeAmbulanceVehicalNumber(ambulance.vehicalNumber)"></td>
+                </tr>               
+        </table> 
+    </div>
+        <table class="buttonsTable" >
+            <tr>
+                <td width="200px">
+                     <button [disabled]="disabled()" class ="btn btn-info" (click)="viewBookingDetails()">View Details</button>
+                    </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                        <td width="1000px">
+                            
+                            <button class="btn btn-secondary float-right" (click)="goBack()">Back</button>
+                        </td>
+            
+            </tr>
+        </table>    
+        </div>
+</body>
+</html>
+<app-loading *ngIf="isSpinning"></app-loading>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<app-footer></app-footer>
